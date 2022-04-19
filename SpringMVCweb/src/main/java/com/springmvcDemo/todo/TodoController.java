@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class TodoController {
@@ -14,8 +14,11 @@ public class TodoController {
 	TodoService service;
 	
 	@GetMapping("/todos")
-	public void getAllTodos()
+	public String getAllTodos(ModelMap model)
 	{
-		System.out.println(service.retrieveTodos());
+		List<Todo> listOfTodos = service.retrieveTodos();
+		model.addAttribute("todos",listOfTodos);
+		return "list-todos";
+		
 	}
 }
